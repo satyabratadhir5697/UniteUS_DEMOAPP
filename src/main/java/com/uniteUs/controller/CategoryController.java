@@ -11,20 +11,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniteUs.Model.Category;
-
+import com.uniteUs.service.ApiKeyService;
 import com.uniteUs.service.CategoryService;
 
 @RestController
 @RequestMapping("/api")
 public class CategoryController {
     @Autowired
-   
     private CategoryService categoryService;
     
-    
+    @Autowired
+    private  ApiKeyService apiKeyService;
     // Save the category and its subcategories in the database
     @PostMapping("/addcategory")
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
@@ -52,4 +53,12 @@ public class CategoryController {
     	Category category = categoryService.getCategoryByName(Category_name);
 	   return ResponseEntity.ok(category);
    }
+    
+    
+
+    @GetMapping("/generate-api-key")
+    public ResponseEntity<String> generateApiKey(@RequestParam String clientName) {
+        String apiKey = apiKeyService.createApiKey(clientName);
+        return ResponseEntity.ok(apiKey);
+    }
 }

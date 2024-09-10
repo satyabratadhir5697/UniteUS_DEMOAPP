@@ -22,10 +22,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Subcategory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
     private String name;
+    @Id
+//    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
